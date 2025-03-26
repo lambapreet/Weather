@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="About page for Weather App built with Django and OpenWeatherMap API">
+    <title>About | Weather App</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'weather/favicon.ico' %}">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'weather/css/about.css' %}">
+    
+    <style>
+        .brand-logo {
+            transition: transform 0.3s ease;
+        }
+        .brand-logo:hover {
+            transform: scale(1.05);
+        }
+        .support-logo {
+            max-height: 100px;
+            object-fit: contain;
+            padding: 15px;
+        }
+        .nav-item {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-cloud-sun me-2"></i>Weather App
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'help' %}">How To Use</a>
+                    </li>
+                </ul>
+                
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <i class="fas fa-trash-alt me-2"></i>Delete All Data
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Header Section -->
+        <section class="text-center mb-5">
+            <h1 class="display-4 mb-4">Welcome to Our Weather App</h1>
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'home' %}" class="brand-logo">
+                    <img src="{% static 'weather/logo.png' %}" alt="Weather App Logo" class="img-fluid" style="max-height: 150px;">
+                </a>
+            </div>
+        </section>
+
+        <!-- Description Section -->
+        <section class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <p class="lead">
+                    This application helps you check weather conditions for cities around the world.
+                    Built with Django for the backend and Bootstrap for the frontend, it utilizes the 
+                    <strong>OpenWeatherMap API</strong> to provide accurate weather data. The API integration
+                    is handled using Python's <code>requests</code> library.
+                </p>
+                <p>
+                    All source code is available on my 
+                    <a href="https://github.com/localhostfotly" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> GitHub account
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        <!-- Supported By Section -->
+        <section class="text-center mb-4">
+            <h2 class="h4 mb-4">Supported By:</h2>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="{% static 'weather/openWeatherMap.png' %}" alt="OpenWeatherMap" class="img-fluid support-logo">
+                    </a>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <a href="https://www.djangoproject.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="{% static 'weather/django-13-1175187.png' %}" alt="Django" class="img-fluid support-logo">
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="{% static 'weather/bootstrap-logo-vector-png-bootstrap-logo-512.jpg' %}" alt="Bootstrap" class="img-fluid support-logo">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Confirm Deletion</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete all weather data? This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'delete_all' %}" class="btn btn-danger">Delete All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">&copy; {% now "Y" %} Weather App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'weather/js/about.js' %}"></script>
+</body>
+</html>
